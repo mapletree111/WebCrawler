@@ -4,7 +4,10 @@ const { parentPort }  = require('worker_threads');
 let standBy;
 
 parentPort.on("message", async (message) => {
-    if(message.state === "StandBy"){
+    if(message.exit){
+        process.exit(0);
+    }
+    else if(message.state === "StandBy"){
         standBy = setInterval(()=>{
             parentPort.postMessage({state:"StandBy"});
         }, 5000);
