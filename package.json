@@ -1,0 +1,23 @@
+{
+  "name": "webcrawler",
+  "version": "1.0.0",
+  "description": "Simple WebCrawler that finds all unique links and traverses them",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapletree111/WebCrawler.git"
+  },
+  "author": "Kien Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapletree111/WebCrawler/issues"
+  },
+  "homepage": "https://github.com/mapletree111/WebCrawler#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "node-fetch": "^2.6.1"
+  }
+}
