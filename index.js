@@ -1,13 +1,12 @@
 const { Worker, isMainThread } = require("worker_threads");
 const fetch = require("node-fetch");
-const cheerio = require("cheerio");
 const yargs = require("yargs");
+const {parseHTML, prettyPrint} = require('./tools_utils.js');
 const { option } = require("yargs");
 
 const knownList = [];
 const newURLs = [];
 const threads = new Set();
-
 
 function updateListsOfURLs(arrayOfURLs){
     let lengthOfURLArray = (arrayOfURLs.length);
@@ -23,37 +22,6 @@ function updateListsOfURLs(arrayOfURLs){
         });
     }
     return;
-}
-
-function prettyPrint(initialURL, listOfURLs){
-    console.log(initialURL);
-    if(listOfURLs.length !== 0){
-        listOfURLs.forEach((item)=>{
-            console.log(" ",item);
-        });
-    }
-    return;
-}
-
-function parseHTML(data){
-    let arrayURL = [];
-    const $ = cheerio.load(data);
-    $('a').each((i, link)=>{
-        const href = link.attribs.href;
-        if(href !== undefined){
-            if(href.startsWith("https") || href.startsWith("http")){
-                arrayURL.push(href);
-            }
-        }
-    });
-    return arrayURL;
-}
-
-async function fetchURL(url){
-    let response = '';
-    response = await fetch(url);
-    return await response.text();
-    
 }
 
 function closeEverything(){
@@ -90,16 +58,18 @@ async function main(){
         numThreads = options.threads;
     }
     let commandArguments = options.url;
-    let data = '';
+    let data, stringifiedData = '';
     try{
-        data = await fetchURL(commandArguments)
+        data = await fetch(commandArguments)
+        stringifiedData =  await data.text();
+
     }
     catch(err){
         console.error(`Error: Invalid URL provided: ${commandArguments}\n${err}`);
         return;
     }
     
-    let arrayURL = parseHTML(data);
+    let arrayURL = parseHTML(stringifiedData);
     knownList.push(commandArguments);
     prettyPrint(commandArguments, arrayURL);
     updateListsOfURLs(arrayURL)
@@ -156,5 +126,3 @@ async function main(){
 if (isMainThread) {
     main();
 }
-
-module.exports = {fetchURL, parseHTML, prettyPrint};

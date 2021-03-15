@@ -1,2 +1,2 @@
 # WebCrawler
-Simple WebCrawler that finds all unique links and traverses them
+Simple WebCrawler that finds all links on a webpage and prints them out.

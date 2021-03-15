@@ -1,4 +1,5 @@
-const {fetchURL, parseHTML} = require('./index.js');
+const fetch = require("node-fetch");
+const {parseHTML} = require('./tools_utils.js');
 const { parentPort }  = require('worker_threads');
 
 let standBy;
@@ -15,15 +16,16 @@ parentPort.on("message", async (message) => {
     else{
         clearInterval(standBy);
         let initialURL = message.url;
-        let data = '';
+        let data, stringifiedData = '';
         try{
-            data = await fetchURL(initialURL);
+            data = await fetch(initialURL);
+            stringifiedData =  await data.text();
         }
         catch(err){
             console.error(`Invalid URL provided: ${initialURL}\n${err}`);
             parentPort.postMessage({currentURL: initialURL, foundURL:[]});
         }
-        let arrayURL = parseHTML(data);
+        let arrayURL = parseHTML(stringifiedData);
         parentPort.postMessage({currentURL: initialURL, foundURL:arrayURL});
     }
 });
