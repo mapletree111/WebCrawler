@@ -3,8 +3,8 @@
 ## Introduction
 Simple WebCrawler that finds all links on a webpage and prints them out to the console.
 Links on the webpage must have the following format to be considered valid ```<a href="http*">```.
-Any links found on the explored webpage will be compared to a list of known links to avoid duplicate visits.
-Multiple threads can be used to fetch and parse data from the provided URL.
+Any links found on the explored webpage will be added to a database of links that will eventually be visited.
+Multiple threads are used to fetch and parse data from the provided URL.
 
 ## Libraries
 Libraries included are:
@@ -72,9 +72,9 @@ Limited by the number of threads that can be created,  future improvement should
 single threaded or multi-threaded.
 
 ### Memory 
-The program keeps a running array to check against and overtime this array would
-impact performance and cause the program to crash. To alleviate this issue, the program could write to storage (if provided) and mange the list of links
-using a database like MySQL. Such operations would take longer to complete but would 
+If the program is keeping the list of array to pull URLs from, overtime this list will cause the program to run out of memory. 
+To alleviate this issue, the program could write to storage (if provided) and manage the list of URLs
+using a database like mySQL. Such operations would take longer to complete but would 
 allow for longer runs with less memory allocation.
     
 ### Storage
@@ -88,6 +88,6 @@ wedge queue.
 
 ## Conclusion
 Improvements this program could benefit from is adding in depth field to the database. This would allow users to set another
-stopping condition instead of just time. Data sent into the database should also be sanatized to avoid  Little Bobby Tables:
-```url:"Robert'); DROP TABLE Links;--"```. Additionally the table could also benefit from adding an url extended field, in the case
-where urls are much larger than 255 characters.
+stopping condition instead of just time. Data sent into the database should also be sanatized to avoid Little Bobby Tables:
+```url:"Robert'); DROP TABLE Links;--"```. Additionally, the table could also benefit from adding a URL extended field, in the case
+where URLs are much larger than 255 characters.
