@@ -37,7 +37,7 @@ node index.js -u <URL>
 All command line options available are:
 - -u - Link/URL to start crawling from
 - -t - Timer to stop application (sec) (default: 300sec) (0 - run forever)
-- -d - Sets the number of nested links the program will traverse before stopping (default: 5) (0 - run forever)
+- -d - Sets the number of nested links the program will traverse before stopping (default: 3) (0 - run forever)
     
 Example:
 
@@ -67,8 +67,8 @@ single threaded or multi-threaded.
 
 ### Memory 
 The program keeps a running array to check against and overtime this array would
-impact performance. To alleviate this issue, the program could write to storage (if provided) and access
-the list of links with I/O operations. Such operations would take longer to complete but would 
+impact performance and cause the program to crash. To alleviate this issue, the program could write to storage (if provided) and mange the list of links
+using a database like MySQL. Such operations would take longer to complete but would 
 allow for longer runs with less memory allocation.
     
 ### Storage
@@ -79,3 +79,7 @@ the max size is reached, workers would have to wait for available space before s
 to the main thread. However, this could create a hard stop on the application if all workers are waiting and none are
 removing items off the list. In this situation, limiting the depth of how far a worker should go will alleviate a
 wedge queue.
+
+# Conclusion
+The next step would be to attached a database to this program. This will solve the increasing HEAP allocation issue and allow
+the app to run longer.
