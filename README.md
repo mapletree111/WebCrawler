@@ -47,14 +47,20 @@ Libraries included are:
 ## Future Considerations
 This application currently runs without much consideration on physical constraints. Some physical constraints
 could drastically change how this application was written and here are some notes to consider:
-    - CPU/Processor/Thread - Limited by this I would not try to implement pools/theads of workers but instead 
-    stick to single threaded operations
-    - Memory - The program keeps a running array to check against and overtime this array would
-    impact performance. To alleviate this issue, the program could write to storage (if provided) and access
-    the list of links with I/O operations. Such operations would take longer to complete but would 
-    allow for longer runs without performance impact.
-    - Storage - If non-volitile memory is not available then the previous idea can not be implemented. In
-    the case of limited storage and limited memory, the program would not keep a running list of unique URLs to 
-    compare against and would limit the max size of the array containing links for workers to request/parse. Once
-    the max size is reach, workers would have wait for available space before sending their list of new URLs back 
-    to the main thread
+
+### CPU/Processor/Thread
+Limited by this I would not try to implement pools/theads of workers but instead 
+stick to single threaded operations
+
+### Memory 
+The program keeps a running array to check against and overtime this array would
+impact performance. To alleviate this issue, the program could write to storage (if provided) and access
+the list of links with I/O operations. Such operations would take longer to complete but would 
+allow for longer runs without performance impact.
+    
+### Storage
+If non-volitile memory is not available then the previous idea can not be implemented. In
+the case of limited storage and limited memory, the program would not keep a running list of unique URLs to 
+compare against and would limit the max size of the array containing links for workers to request/parse. Once
+the max size is reach, workers would have wait for available space before sending their list of new URLs back 
+to the main thread
