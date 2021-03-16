@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js -u https://github.com -n 1 -t 10000"
+    "start": "node index.js -u https://github.com"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "cheerio": "^1.0.0-rc.5",
     "mocha": "^8.3.2",
     "node-fetch": "^2.6.1",
+    "node-worker-threads-pool": "^1.4.3",
     "yargs": "^16.2.0"
   }
 }
