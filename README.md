@@ -35,8 +35,8 @@ node index.js -u <URL>
 ```
 
 All command line options available are:
-- u    Link/URL to start crawling from
-- t    Timer to stop application (sec) (default: 300sec) (0 - run forever)
+- -u - Link/URL to start crawling from
+- -t - Timer to stop application (sec) (default: 300sec) (0 - run forever)
     
 Example:
 
@@ -56,8 +56,8 @@ This application currently runs without much consideration on physical constrain
 could drastically change how this application was written and here are some notes to consider:
 
 ### CPU/Processor/Thread
-Limited by this I would not try to implement pools/theads of workers but instead 
-stick to single threaded operations
+Limited by the number of threads that can be created,  future improvement should allow users to chose whether to run
+single threaded or multi-threaded.
 
 ### Memory 
 The program keeps a running array to check against and overtime this array would
