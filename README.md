@@ -11,6 +11,7 @@ Libraries included are:
 
 - node.js (14.16.0 LTS) - Execute javascript code
 - npm (6.14.11) - Use to install node modules
+- mysql (8.0.23) - Database used to store links to disk
 - node-worker-threads-pool - Access to creating pools of workers to request/parse HTML body for the main thread
 - cheerio - HTML parser library to used to find all links on a webpage
 - node-fetch - Use for fetching HTML data from provided URLs
@@ -18,8 +19,13 @@ Libraries included are:
 - chai & mocha - To develop/run unit tests
 
 ## Installation
-    1. Install Node.js and NPM from the Node.js official website
-    2. Run npm install at the root level of directory to install all dependencies
+1. Install Node.js, NPM, and mySQL from the respective websites
+    - Node.js,NPM - https://nodejs.org/en/download/
+    - mySQL - https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/
+
+2. Run npm install at the root level of directory to install all dependencies
+
+3. Edit the config.json file and link the mySQL server to the app
 
 ## Usage
 - A default run script is already setup and can be access with npm start
@@ -79,7 +85,3 @@ the max size is reached, workers would have to wait for available space before s
 to the main thread. However, this could create a hard stop on the application if all workers are waiting and none are
 removing items off the list. In this situation, limiting the depth of how far a worker should go will alleviate a
 wedge queue.
-
-# Conclusion
-The next step would be to attach a database to this program. This will solve the increasing HEAP allocation issue and allow
-the app to run longer.
