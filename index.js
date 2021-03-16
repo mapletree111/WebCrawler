@@ -61,11 +61,15 @@ function initializeDatabase(){
 }
 
 function insertIntoTable(data){
+    if(data.length > 255){
+        console.log("Unable to add URL, url too large");
+        return;
+    }
     return new Promise((resolve, reject)=>{
         let insertCmd = "INSERT INTO Links (url) VALUES ('"+data+"')";  
         con.query(insertCmd, function (err) {  
             if (err){ 
-                reject(err); 
+                console.log("Cannot add:",data , "\nError code:", err.code);
             }
             resolve(true);
         });

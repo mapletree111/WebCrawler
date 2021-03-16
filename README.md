@@ -85,3 +85,9 @@ the max size is reached, workers would have to wait for available space before s
 to the main thread. However, this could create a hard stop on the application if all workers are waiting and none are
 removing items off the list. In this situation, limiting the depth of how far a worker should go will alleviate a
 wedge queue.
+
+## Conclusion
+Improvements this program could benefit from is adding in depth field to the database. This would allow users to set another
+stopping condition instead of just time. Data sent into the database should also be sanatized to avoid  Little Bobby Tables:
+```url:"Robert'); DROP TABLE Links;--"```. Additionally the table could also benefit from adding an url extended field, in the case
+where urls are much larger than 255 characters.
