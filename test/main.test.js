@@ -5,8 +5,8 @@ var expect  = require('chai').expect;
 const testsCase = ["./test/htmlTest1.html", "./test/htmlTest2.html",
 "./test/htmlTest3.html"];
 
-const urlTestCase =["https://testUnique.com","https://testSimilar.com",
-"https://testSimilar.com"];
+const urlTestCase =[{link:"https://testUnique.com"},{link:"https://testSimilar.com"},
+{link:"https://testSimilar.com"}];
 
 
 describe("Testing Parser", function(){
@@ -48,8 +48,8 @@ describe("Update List of URLs Test", function(){
         it("Should only remove duplicate in test cases", function(){
             let output = updateListsOfURLs(knownList, urlTestCase);
             expect(output.length).to.be.equal(2);
-            expect(output[0]).to.be.equal("https://testUnique.com");
-            expect(output[1]).to.be.equal("https://testSimilar.com");
+            expect(output[0].link).to.be.equal("https://testUnique.com");
+            expect(output[1].link).to.be.equal("https://testSimilar.com");
         });
     });
     describe("Second iteration through function", function(){
