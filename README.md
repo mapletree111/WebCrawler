@@ -1,12 +1,12 @@
 # WebCrawler
 
-* Introduction
+## Introduction
 Simple WebCrawler that finds all links on a webpage and prints them out to the console.
-Links on the webpage must have the following format to be considered valid ~<a href="http*">~.
+Links on the webpage must have the following format to be considered valid ```<a href="http*">```.
 Any links found on the explored webpage will be compared to a list of known links to avoid duplicate visits.
 Multiple threads can be used to fetch and parse data from the provided URL.
 
-* Libraries
+## Libraries
 Libraries included are:
     - node.js (14.16.0 LTS) - Execute javascript code
     - npm (6.14.11) - Use to install node modules
@@ -16,39 +16,35 @@ Libraries included are:
     - yargs - Command line arguement parser
     - chai & mocha - To develop/run unit tests
 
-* Installation
+## Installation
     1. Install Node.js and NPM from the Node.js official website
     2. Run ~npm install~ at the root level of directory to install all dependencies
 
-* Usage
+## Usage
     - A default run script is already setup and can be access with ~npm start~
-    #+BEGIN_EXAMPLE
+    ```
     Default command line: node index.js -u https://github.com
-    #+END_EXAMPLE
+    ```
     However if a user would like to supply their own URL run this command line at the root directory:
-    #+BEGIN_EXAMPLE
+    ```
     node index.js -u <URL>
-    #+END_EXAMPLE
+    ```
     All command line options available are:
-    |---------+-------------------------------------------------------------------------+------------|
-    | Options | Description                                                             |    Type    |
-    |---------+-------------------------------------------------------------------------+------------|
-    |   -u    | Link/URL to start crawling from                                         |   string   |
-    |   -t    | Timer to stop application (sec) (default: 300sec) (0 - run forever)     |   number   |
-    |---------+-------------------------------------------------------------------------+------------|
+    - u    Link/URL to start crawling from
+    - t    Timer to stop application (sec) (default: 300sec) (0 - run forever)
     
     Example:
-    #+BEGIN_EXAMPLE
+    ```
     node index.js -u <URL> -t 120
-    #+END_EXAMPLE
+    ```
 
-* Test
+## Test
     Unit tests can be run with the following command at the root directory:
-    #+BEGIN_EXAMPLE
-    npm run test
-    #+END_EXAMPLE
+    ```nodejs
+        npm run test
+    ```
 
-* Future Considerations
+## Future Considerations
 This application currently runs without much consideration on physical constraints. Some physical constraints
 could drastically change how this application was written and here are some notes to consider:
     - CPU/Processor/Thread - Limited by this I would not try to implement pools/theads of workers but instead 
