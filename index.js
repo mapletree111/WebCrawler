@@ -1,21 +1,18 @@
-const { isMainThread } = require("worker_threads");
+const { isMainThread, Worker } = require("worker_threads");
 const fetch = require("node-fetch");
 const yargs = require("yargs");
 const {parseHTML, prettyPrint} = require('./tools_utils.js');
-const { StaticPool } = require("node-worker-threads-pool");
 const path = require("path");
 const mysql = require('mysql');
 const config = require('./config.json');
 
+const numThreads = 2;
+
 const workerScript = path.join(__dirname, "./worker.js");
 const { host, port, user, password } = config.database;
+const threads = new Set();
 
 const con = mysql.createConnection({ host, port, user, password });
-
-const pool = new StaticPool({
-    size: 6,
-    task: workerScript,
-});
 
 function initializeDatabase(){
     return new Promise((resolve, reject)=>{
@@ -166,19 +163,52 @@ async function main(){
     for(let i = 0; i < arrayURL.length; i++){
         await insertIntoTable(arrayURL[i]);
     }
-    let nextURL = await getFirstElement();
-    await removeFirstElement();
+    
 
+    for(let i = 0; i < numThreads; i ++){
+        threads.add(new Worker(workerScript));
+    }
     // Loop for workers
-    while(nextURL.url){
-        let message = await pool.exec({url:nextURL.url});
-        prettyPrint(message.currentURL, message.foundURL);
-        for(let i = 0; i < message.foundURL.length; i++){
-            await insertIntoTable(message.foundURL[i]);
+    // while(nextURL.url){
+        // let message = await pool.exec({url:nextURL.url});
+        // prettyPrint(message.currentURL, message.foundURL);
+        
+    // }
+    let counter = numThreads;
+    let nextURL = null;
+    for(let worker of threads){
+        if(counter === 0){
+            break;
         }
         nextURL = await getFirstElement();
         await removeFirstElement();
+        if(nextURL !== undefined){
+            worker.postMessage({exit:true});
+        }
+        worker.on("error", (err) => {console.error("Error: Something we wrong with one of the threads:", err)});
+        worker.on('exit', ()=>{
+            threads.delete(worker);
+            threads.add(new Worker(workerScript));
+        })
+        worker.on('message', async (message) => {
+            
+            prettyPrint(message.currentURL, message.foundURL);
+            for(let i = 0; i < message.foundURL.length; i++){
+                await insertIntoTable(message.foundURL[i]);
+            }
+            
+            nextURL = await getFirstElement();
+            await removeFirstElement();
+
+            if(nextURL !== undefined){
+                worker.postMessage({url:nextURL});
+            }
+            else{
+                counter--;
+            }
+        });
     }
+
     console.log("Finished!");
     process.exit(0);
 }
