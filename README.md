@@ -56,18 +56,18 @@ This application currently runs without much consideration on physical constrain
 could drastically change how this application was written and here are some notes to consider:
 
 ### CPU/Processor/Thread
-Limited by the number of threads that can be created,  future improvement should allow users to chose whether to run
+Limited by the number of threads that can be created,  future improvement should allow users to choose whether to run
 single threaded or multi-threaded.
 
 ### Memory 
 The program keeps a running array to check against and overtime this array would
 impact performance. To alleviate this issue, the program could write to storage (if provided) and access
 the list of links with I/O operations. Such operations would take longer to complete but would 
-allow for longer runs without performance impact.
+allow for longer runs without as much memory allocation.
     
 ### Storage
 If non-volitile memory is not available then the previous idea can not be implemented. In
 the case of limited storage and limited memory, the program would not keep a running list of unique URLs to 
 compare against and would limit the max size of the array containing links for workers to request/parse. Once
-the max size is reach, workers would have wait for available space before sending their list of new URLs back 
-to the main thread
+the max size is reached, workers would have to wait for available space before sending their list of new URLs back 
+to the main thread.
