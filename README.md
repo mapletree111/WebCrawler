@@ -3,8 +3,8 @@
 ## Introduction
 Simple WebCrawler that finds all links on a webpage and prints them out to the console.
 Links on the webpage must have the following format to be considered valid ```<a href="http*">```.
-Any links found on the explored webpage will be compared to a list of known links to avoid duplicate visits.
-Multiple threads can be used to fetch and parse data from the provided URL.
+Any links found on the explored webpage will be added to a database of links that will eventually be visited.
+Multiple threads are used to fetch and parse data from the provided URL.
 
 ## Libraries
 Libraries included are:
