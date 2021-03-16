@@ -4,7 +4,8 @@
   "description": "Simple WebCrawler that finds all unique links and traverses them",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node index.js -u https://github.com -n 1 -t 10000"
   },
   "repository": {
     "type": "git",

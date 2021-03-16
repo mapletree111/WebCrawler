@@ -1,39 +1,36 @@
 const { Worker, isMainThread } = require("worker_threads");
 const fetch = require("node-fetch");
 const yargs = require("yargs");
-const {parseHTML, prettyPrint} = require('./tools_utils.js');
+const {parseHTML, prettyPrint, updateListsOfURLs} = require('./tools_utils.js');
 const { option } = require("yargs");
 
-const knownList = [];
-const newURLs = [];
 const threads = new Set();
-
-function updateListsOfURLs(arrayOfURLs){
-    let lengthOfURLArray = (arrayOfURLs.length);
-    if(lengthOfURLArray > 0){
-        arrayOfURLs.forEach((item)=>{
-            if(knownList.includes(item)){
-                return;
-            }
-            else{
-                knownList.push(item);
-                newURLs.push(item);
-            }
-        });
-    }
-    return;
-}
-
+/**
+ * Function that setTimeout will call to end program if set
+ *
+ * @param none
+ * @return none
+ */
 function closeEverything(){
     for(let worker of threads){
         worker.postMessage({exit:true});
     }
 }
 
+/**
+ * Main thread taking in commandline arguments, stepping
+ * through first iteration of web-crawler, and controls the
+ * worker threads
+ *
+ * @param none
+ * @return none
+ */
 async function main(){
     let workerWaiting = 0;
     let numThreads = 1;
     let setTimer = 300;
+    const knownList = [];
+    const newURLs = [];
     const options = yargs
         .usage("Usage: -u <url>")
         .option("u",{ alias: "url", describe: "Link/URL to start crawling from", type: "string", demandOption: true })
@@ -51,7 +48,7 @@ async function main(){
         setTimeout(closeEverything, (setTimer*100));
     }
     if(options.threads){
-        if(options.threads <= 0){
+        if(options.threads <= 1){
             console.error("Error: Number of threads cannot be lower than 1");
             return;
         }
@@ -72,12 +69,15 @@ async function main(){
     let arrayURL = parseHTML(stringifiedData);
     knownList.push(commandArguments);
     prettyPrint(commandArguments, arrayURL);
-    updateListsOfURLs(arrayURL)
-    let firstURL = newURLs.shift();
+    let tempURL = updateListsOfURLs(knownList,arrayURL)
+    tempURL.forEach((item)=>{
+        newURLs.push(item);
+    })
     for(let i = 0; i < numThreads; i ++){
         threads.add(new Worker("./worker.js"));
     }
     for(let worker of threads){
+        let firstURL = newURLs.shift();
         if(firstURL !== undefined){
             worker.postMessage({url:firstURL});
         }
@@ -109,9 +109,13 @@ async function main(){
             else{
                 prettyPrint(message.currentURL, message.foundURL);
                 let workerFoundURL = message.foundURL;
-                updateListsOfURLs(workerFoundURL);
+                let tempURL = updateListsOfURLs(knownList,workerFoundURL)
+                tempURL.forEach((item)=>{
+                    knownList.push(item);
+                    newURLs.push(item);
+                })
                 let nextURL = newURLs.shift();
-                if(firstURL !== undefined){
+                if(nextURL !== undefined){
                     worker.postMessage({url:nextURL});
                 }
                 else{
