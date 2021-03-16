@@ -63,11 +63,13 @@ single threaded or multi-threaded.
 The program keeps a running array to check against and overtime this array would
 impact performance. To alleviate this issue, the program could write to storage (if provided) and access
 the list of links with I/O operations. Such operations would take longer to complete but would 
-allow for longer runs without as much memory allocation.
+allow for longer runs with less memory allocation.
     
 ### Storage
-If non-volitile memory is not available then the previous idea can not be implemented. In
+If non-volatile memory is not available, then the previous idea cannot be implemented. In
 the case of limited storage and limited memory, the program would not keep a running list of unique URLs to 
 compare against and would limit the max size of the array containing links for workers to request/parse. Once
 the max size is reached, workers would have to wait for available space before sending their list of new URLs back 
-to the main thread.
+to the main thread. However, this could create a hard stop on the application if all workers are waiting and none are
+removing items off the list. In this situation, limiting the depth of how far a worker should go will alleviate a
+wedge queue.
