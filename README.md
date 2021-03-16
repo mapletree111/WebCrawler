@@ -18,31 +18,29 @@ Libraries included are:
 
 ## Installation
     1. Install Node.js and NPM from the Node.js official website
-    2. Run ~npm install~ at the root level of directory to install all dependencies
+    2. Run npm install at the root level of directory to install all dependencies
 
 ## Usage
-    - A default run script is already setup and can be access with ~npm start~
-    ```
-    Default command line: node index.js -u https://github.com
-    ```
+    - A default run script is already setup and can be access with npm start
+
+    ```Default command line: node index.js -u https://github.com```
+
     However if a user would like to supply their own URL run this command line at the root directory:
-    ```
-    node index.js -u <URL>
-    ```
+
+    ```node index.js -u <URL>```
+
     All command line options available are:
     - u    Link/URL to start crawling from
     - t    Timer to stop application (sec) (default: 300sec) (0 - run forever)
     
     Example:
-    ```
-    node index.js -u <URL> -t 120
-    ```
+
+    ```node index.js -u <URL> -t 120```
 
 ## Test
     Unit tests can be run with the following command at the root directory:
-    ```nodejs
-        npm run test
-    ```
+
+    ```npm run test```
 
 ## Future Considerations
 This application currently runs without much consideration on physical constraints. Some physical constraints
