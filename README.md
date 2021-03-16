@@ -81,5 +81,5 @@ removing items off the list. In this situation, limiting the depth of how far a 
 wedge queue.
 
 # Conclusion
-The next step would be to attached a database to this program. This will solve the increasing HEAP allocation issue and allow
+The next step would be to attach a database to this program. This will solve the increasing HEAP allocation issue and allow
 the app to run longer.
