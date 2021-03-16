@@ -72,9 +72,9 @@ Limited by the number of threads that can be created,  future improvement should
 single threaded or multi-threaded.
 
 ### Memory 
-The program keeps a running array to check against and overtime this array would
-impact performance and cause the program to crash. To alleviate this issue, the program could write to storage (if provided) and mange the list of links
-using a database like MySQL. Such operations would take longer to complete but would 
+If the program is keeping the list of array to pull URLs from, overtime this list will cause the program to run out of memory. 
+To alleviate this issue, the program could write to storage (if provided) and manage the list of URLs
+using a database like mySQL. Such operations would take longer to complete but would 
 allow for longer runs with less memory allocation.
     
 ### Storage
