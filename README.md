@@ -3,8 +3,8 @@
 ## Introduction
 Simple WebCrawler that finds all links on a webpage and prints them out to the console.
 Links on the webpage must have the following format to be considered valid ```<a href="http*">```.
-Any links found on the explored webpage will be compared to a list of known links to avoid duplicate visits.
-Multiple threads can be used to fetch and parse data from the provided URL.
+Any links found on the explored webpage will be added to a temporary file for record keeping.
+The program utilizes thread pools to allocate URLs for requesting/parsing
 
 ## Libraries
 Libraries included are:
@@ -16,6 +16,7 @@ Libraries included are:
 - node-fetch - Use for fetching HTML data from provided URLs
 - yargs - Command line arguement parser
 - chai & mocha - To develop/run unit tests
+- fs - Module to save and read in files
 
 ## Installation
     1. Install Node.js and NPM from the Node.js official website
@@ -37,7 +38,6 @@ node index.js -u <URL>
 All command line options available are:
 - -u - Link/URL to start crawling from
 - -t - Timer to stop application (sec) (default: 300sec) (0 - run forever)
-- -d - Sets the number of nested links the program will traverse before stopping (default: 5) (0 - run forever)
     
 Example:
 
