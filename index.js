@@ -19,9 +19,9 @@ const pool = new StaticPool({
 
 function initializeDatabase(){
     return new Promise((resolve, reject)=>{
-        console.log("Tring to connect to database");
         con.connect(function(err) {
             if(err){
+                console.log(`Error, database was not setup correctly: host:${host}, port:${port}, user:${user}`)
                 reject(err);
             }
             else{
@@ -144,7 +144,6 @@ async function main(){
     let data, stringifiedData = '';
     // Initialize database/table
     await initializeDatabase();
-
 
     // Start of first iteration
     try{
