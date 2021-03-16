@@ -8,39 +8,48 @@ Multiple threads can be used to fetch and parse data from the provided URL.
 
 ## Libraries
 Libraries included are:
-    - node.js (14.16.0 LTS) - Execute javascript code
-    - npm (6.14.11) - Use to install node modules
-    - node-worker-threads-pool - Access to creating pools of workers to request/parse HTML body for the main thread
-    - cheerio - HTML parser library to used to find all links on a webpage
-    - node-fetch - Use for fetching HTML data from provided URLs
-    - yargs - Command line arguement parser
-    - chai & mocha - To develop/run unit tests
+
+- node.js (14.16.0 LTS) - Execute javascript code
+- npm (6.14.11) - Use to install node modules
+- node-worker-threads-pool - Access to creating pools of workers to request/parse HTML body for the main thread
+- cheerio - HTML parser library to used to find all links on a webpage
+- node-fetch - Use for fetching HTML data from provided URLs
+- yargs - Command line arguement parser
+- chai & mocha - To develop/run unit tests
 
 ## Installation
     1. Install Node.js and NPM from the Node.js official website
     2. Run npm install at the root level of directory to install all dependencies
 
 ## Usage
-    - A default run script is already setup and can be access with npm start
+- A default run script is already setup and can be access with npm start
 
-    ```Default command line: node index.js -u https://github.com```
+```
+Default command line: node index.js -u https://github.com
+```
 
-    However if a user would like to supply their own URL run this command line at the root directory:
+However if a user would like to supply their own URL run this command line at the root directory:
 
-    ```node index.js -u <URL>```
+```
+node index.js -u <URL>
+```
 
-    All command line options available are:
-    - u    Link/URL to start crawling from
-    - t    Timer to stop application (sec) (default: 300sec) (0 - run forever)
+All command line options available are:
+- u    Link/URL to start crawling from
+- t    Timer to stop application (sec) (default: 300sec) (0 - run forever)
     
-    Example:
+Example:
 
-    ```node index.js -u <URL> -t 120```
+```
+node index.js -u <URL> -t 120
+```
 
 ## Test
-    Unit tests can be run with the following command at the root directory:
+Unit tests can be run with the following command at the root directory:
 
-    ```npm run test```
+```
+npm run test
+```
 
 ## Future Considerations
 This application currently runs without much consideration on physical constraints. Some physical constraints
