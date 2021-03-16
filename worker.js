@@ -5,7 +5,7 @@ const { parentPort }  = require('worker_threads');
 let standBy;
 
 parentPort.on("message", async (message) => {
-    let initialURL = message.url;
+    let initialURL = message.url.link;
     let data, stringifiedData = '';
     try{
         data = await fetch(initialURL);
