@@ -37,11 +37,17 @@ node index.js -u <URL>
 All command line options available are:
 - -u - Link/URL to start crawling from
 - -t - Timer to stop application (sec) (default: 300sec) (0 - run forever)
+- -d - Sets the number of nested links the program will traverse before stopping (default: 5) (0 - run forever)
     
 Example:
 
 ```
-node index.js -u <URL> -t 120
+node index.js -u <URL> -t 120 -d 2
+```
+
+To view these commands on the console, run:
+```
+node index.js --help
 ```
 
 ## Test

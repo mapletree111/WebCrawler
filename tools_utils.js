@@ -13,26 +13,29 @@ function prettyPrint(initialURL, listOfURLs){
     console.log(initialURL);
     if(listOfURLs.length !== 0){
         listOfURLs.forEach((item)=>{
-            console.log(" ",item);
+            console.log(" ",item.link);
         });
     }
     return;
 }
 /**
  * Utilizing cheerio library to parse a string version of the DOM
- * to obtain any <a href="http*"> elements.
+ * and obtain any <a href="http*"> elements. Construct a list with
+ * appropriate depth level and return it.
  *
  * @param {string} data Stringified version of the DOM for parsing
+ * @param {number} d Current depth level the data is at
  * @return {array} arrayURL List of <a href="http*"> saw in the DOM
  */
-function parseHTML(data){
+function parseHTML(data, d){
+    let num = d + 1;
     let arrayURL = [];
     const $ = cheerio.load(data);
     $('a').each((i, link)=>{
         const href = link.attribs.href;
         if(href !== undefined){
             if(href.startsWith("https") || href.startsWith("http")){
-                arrayURL.push(href);
+                arrayURL.push({link:href, depth:num});
             }
         }
     });
@@ -53,12 +56,12 @@ function updateListsOfURLs(knownList, arrayOfURLs){
     if(lengthOfURLArray > 0){
         // Loop through all the newly acquire URLs
         arrayOfURLs.forEach((item)=>{
-            if(knownList.includes(item)){
+            if(knownList.includes(item.link)){
                 return;
             }
             else{
                 // Take note of only unique ones
-                knownList.push(item);
+                knownList.push(item.link);
                 copyOfNewUrls.push(item);
             }
         });
