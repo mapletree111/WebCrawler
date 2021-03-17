@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js -u https://github.com -t 0 "
+    "start": "node index.js -u https://www.rescale.com -t 0 "
   },
   "repository": {
     "type": "git",
