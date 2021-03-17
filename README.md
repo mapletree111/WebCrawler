@@ -4,7 +4,12 @@
 Simple WebCrawler that finds all links on a webpage and prints them out to the console.
 Links on the webpage must have the following format to be considered valid ```<a href="http*">```.
 Any links found on the explored webpage will be added to a database of links that will eventually be visited.
-Multiple threads are used to fetch and parse data from the provided URL.
+Multiple threads are used to fetch and parse data from the provided URL. A list of newly found URLs is return back to the main
+thread for adding to its database.
+
+#### Known issues
+If the URL fetched has a download, the program will stall. If the download is too large it overflows the HEAP, then workers will crash.
+Current workaround is increasing the HEAP size provided by nodejs but that is not a viable long-term solution.
 
 ## Libraries
 Libraries included are:
