@@ -16,7 +16,12 @@ const pool = new StaticPool({
     size: 6,
     task: workerScript,
 });
-
+/**
+ * First steps to intialize the database
+ *
+ * @param none
+ * @return Promise - resolve - true value
+ */
 function initializeDatabase(){
     return new Promise((resolve, reject)=>{
         con.connect(function(err) {
@@ -59,7 +64,12 @@ function initializeDatabase(){
         })
     });
 }
-
+/**
+ * Inserting URLs to the database
+ *
+ * @param {string} data URL to add to database
+ * @return {Promise} resolves true value
+ */
 function insertIntoTable(data){
     if(data.length > 255){
         console.log("Unable to add URL, url too large");
@@ -76,7 +86,12 @@ function insertIntoTable(data){
     });
     
 }
-
+/**
+ * Remove the first element out of database
+ *
+ * @param none
+ * @return {Pormise} resolves true value
+ */
 function removeFirstElement(){
     return new Promise((resolve, reject)=>{
         con.query("DELETE FROM Links LIMIT 1", function (err) {  
@@ -89,7 +104,12 @@ function removeFirstElement(){
         });
     });
 }
-
+/**
+ * Gets the first element from the database
+ *
+ * @param none
+ * @return {Promise} resolves in the object containing the entry in the database
+ */
 function getFirstElement(){
     return new Promise((resolve, reject)=>{
         let sqlGET = "SELECT * from Links LIMIT 1";
