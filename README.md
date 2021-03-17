@@ -92,6 +92,6 @@ wedge queue.
 
 ## Conclusion
 Improvements this program could benefit from is adding in depth field to the database. This would allow users to set another
-stopping condition instead of just time. Data sent into the database should also be sanatized to avoid Little Bobby Tables:
+stopping condition instead of just time. Data sent into the database should also be sanitized to avoid Little Bobby Tables:
 ```url:"Robert'); DROP TABLE Links;--"```. Additionally, the table could also benefit from adding a URL extended field, in the case
 where URLs are much larger than 255 characters.
